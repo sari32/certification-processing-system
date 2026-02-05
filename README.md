@@ -40,11 +40,12 @@
 ├── DocumentGenerator.cs  # מנוע הפקת המסמכים (Word Interop)
 └── Program.cs            # נקודת הכניסה וניהול התהליך
 └── Template.docx         # תבנית ה-Word עם שדות המיזוג
+```
 
 ## 🚀 שיפורים לייצור (Production Readiness)
 **מענה לשאלה: אילו שיפורים הייתי מבצע לפני העלאה לייצור (Production)?**
 
-במידה והמערכת הייתה מיועדת לסביבת Production בעומסים גבוהים, הייתי מבצע את השינויים הארכיטקטוניים הבאים:
+במידה והמערכת הייתה מיועדת לסביבת Production בעומסים גבוהים, הייתי מבצעת את השינויים הארכיטקטוניים הבאים:
 
 ### 1. החלפת תשתית העבודה מול Word (Technical Stack)
 השימוש הנוכחי ב-`Microsoft.Office.Interop` אינו מומלץ לשרתים (Server-side) כיוון שהוא איטי, דורש התקנת Office, וחשוף לבעיות זיכרון (Memory Leaks).
