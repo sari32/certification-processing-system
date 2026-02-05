@@ -4,7 +4,7 @@
 ![.NET](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![Microsoft Word](https://img.shields.io/badge/Microsoft_Word-2B579A?style=for-the-badge&logo=microsoft-word&logoColor=white)
 
-מערכת אוטומטית לעיבוד נתוני הכשרה והפקת תעודות/מכתבים רשמיים בפורמט PDF. המערכת קוראת נתונים מקובץ CSV, מבצעת ניקוי נתונים (Deduplication), ומפיקה מסמכים מותאמים אישית על בסיס תבנית Word.
+מערכת אוטומטית לעיבוד נתוני הכשרה והפקת מכתבים רשמיים בפורמט PDF. המערכת קוראת נתונים מקובץ CSV, מבצעת ניקוי נתונים (Deduplication), ומפיקה מסמכים מותאמים אישית על בסיס תבנית Word.
 
 ## 🚀 תכונות עיקריות (Key Features)
 
