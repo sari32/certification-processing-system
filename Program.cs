@@ -1,4 +1,6 @@
-﻿namespace CertificationProcessingSystem
+﻿using System.Diagnostics;
+
+namespace CertificationProcessingSystem
 {
     internal class Program
     {
@@ -21,6 +23,29 @@
                 Console.WriteLine($"Name: {c.FullName}, Dept: {c.Department}, Final Score: {c.FinalScore}");
             }
 
+
+            string templatePath = Path.GetFullPath("Template.docx"); 
+            string outputFolder = Path.GetFullPath("Output");
+
+            if (!File.Exists(templatePath))
+            {
+                Console.WriteLine("Error: Template file not found!");
+                return;
+            }
+
+            var generator = new DocumentGenerator();
+
+            Console.WriteLine("Starting report generation...");
+
+            foreach (var candidate in candidates)
+            {
+                if(candidate.FinalScore>=70)
+                generator.GenerateReport(candidate, templatePath, outputFolder);
+            }
+
+            Console.WriteLine("Done.");
+
+            Process.Start("explorer.exe", outputFolder);
 
         }
     }
