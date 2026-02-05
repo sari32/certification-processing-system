@@ -1,4 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Diagnostics;
+using Microsoft.Office.Interop.Word;
+using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace CertificationProcessingSystem
 {
@@ -17,13 +22,6 @@ namespace CertificationProcessingSystem
 
             var candidates = CsvService.LoadAndCleanData(filePath);
 
-            // הדפסה לבדיקה
-            foreach (var c in candidates)
-            {
-                Console.WriteLine($"Name: {c.FullName}, Dept: {c.Department}, Final Score: {c.FinalScore}");
-            }
-
-
             string templatePath = Path.GetFullPath("Template.docx"); 
             string outputFolder = Path.GetFullPath("Output");
 
@@ -34,17 +32,30 @@ namespace CertificationProcessingSystem
             }
 
             var generator = new DocumentGenerator();
+            Application wordApp = new Application(); 
 
-            Console.WriteLine("Starting report generation...");
-
-            foreach (var candidate in candidates)
+            try
             {
-                if(candidate.FinalScore>=70)
-                generator.GenerateReport(candidate, templatePath, outputFolder);
+                Console.WriteLine("Starting report generation...");
+                foreach (var candidate in candidates)
+                {
+                    if (candidate.FinalScore >= 70)
+                    {
+                        generator.GenerateReport(candidate, templatePath, outputFolder, wordApp);
+                    }
+                }
+            }
+            finally
+            {
+                if (wordApp != null)
+                {
+                    wordApp.Quit();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
+                    Console.WriteLine("Word Application closed safely.");
+                }
             }
 
             Console.WriteLine("Done.");
-
             Process.Start("explorer.exe", outputFolder);
 
         }

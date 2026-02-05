@@ -5,16 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Microsoft.Office.Interop.Word;
-using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace CertificationProcessingSystem
 {
     public class DocumentGenerator
     {
-        public void GenerateReport(Candidate candidate, string templatePath, string outputFolder)
+        /// <summary>
+        /// מייצר דוח אישי למועמד על בסיס תבנית וורד וממיר אותו ל-PDF.
+        /// </summary>
+        /// <param name="candidate">אובייקט המועמד המכיל את הנתונים</param>
+        /// <param name="templatePath">נתיב מלא לקובץ התבנית</param>
+        /// <param name="outputFolder">תיקיית היעד לשמירת הדוחות</param>
+        public void GenerateReport(Candidate candidate, string templatePath, string outputFolder, Application wordApp)
         {
-            Application wordApp = new Application();
             Document doc = null;
 
             try
@@ -61,18 +64,14 @@ namespace CertificationProcessingSystem
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(doc);
                 }
 
-                if (wordApp != null)
-                {
-                    wordApp.Quit();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
-                }
                 // מחיקת קובץ הוורד הזמני
                 string tempDocPath = Path.Combine(outputFolder, $"{candidate.FullName}_Temp.docx");
                 if (File.Exists(tempDocPath)) File.Delete(tempDocPath);
             }
         }
 
-            private void ReplaceMergeField(Document doc, string fieldName, string text)
+        // פונקצית עזר להחלפת שדות מיזוג בתבנית הוורד בטקסט הרצוי
+        private void ReplaceMergeField(Document doc, string fieldName, string text)
         {
             foreach (Field field in doc.Fields)
             {

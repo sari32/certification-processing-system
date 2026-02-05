@@ -17,7 +17,6 @@ namespace CertificationProcessingSystem
         public double FinalScore { get; private set; }
         public string FullName => $"{FirstName} {LastName}";
 
-        //constructor
         public Candidate(string firstName, string lastName, string department, int theoryScore, int practicalScore)
         {
             FirstName = firstName;
@@ -37,7 +36,7 @@ namespace CertificationProcessingSystem
             LastName = FixCase(LastName);
         }
 
-        // פונקציית עזר פנימית לתיקון השמות (dana -> Dana)
+        // פונקציית עזר פנימית לתיקון השמות
         private string FixCase(string text)
         {
             if (string.IsNullOrWhiteSpace(text)) return string.Empty;
